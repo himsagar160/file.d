@@ -1,32 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>file.d documentation</title>
-  <link rel="icon" type="image/png" href="/file.d/static/file.d.png" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="A blazing fast tool for building data pipelines: read, process, and output events.">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Work</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+            background-color: darkgreen;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            color: black;
+        }
+        input, button {
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
-  <div id="app"></div>
-  <script>
-    window.$docsify = {
-      name: 'file.d',
-      repo: 'https://github.com/ozontech/file.d',
-      loadSidebar: true,
-      loadNavbar: true,
-      subMaxLevel: 2,
-      maxLevel: 1,
-      coverpage: true,
-      auto2top: true,
-      markdown: {
-        gfm: true
-      }
-    }
-  </script>
-  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-  <script src="//unpkg.com/docsify-copy-code"></script>
+    <div class="container">
+        <h2>My Work</h2>
+        <input type="text" id="articleNo" placeholder="Enter Article No">
+        <input type="text" id="name" placeholder="Enter Name">
+        <input type="text" id="fatherName" placeholder="Enter Father Name">
+        <input type="text" id="village" placeholder="Enter Village">
+        <input type="date" id="date">
+        <button onclick="uploadData()">Upload Data</button>
+        <input type="text" id="search" onkeyup="searchData()" placeholder="Search...">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>Article No</th>
+                    <th>Name</th>
+                    <th>Father Name</th>
+                    <th>Village</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function uploadData() {
+            let articleNo = document.getElementById("articleNo").value;
+            let name = document.getElementById("name").value;
+            let fatherName = document.getElementById("fatherName").value;
+            let village = document.getElementById("village").value;
+            let date = document.getElementById("date").value;
+            
+            if(articleNo && name && fatherName && village && date) {
+                let table = document.getElementById("dataTable").getElementsByTagName('tbody')[0];
+                let newRow = table.insertRow();
+                newRow.innerHTML = `<td>${articleNo}</td><td>${name}</td><td>${fatherName}</td><td>${village}</td><td>${date}</td>`;
+                document.getElementById("articleNo").value = "";
+                document.getElementById("name").value = "";
+                document.getElementById("fatherName").value = "";
+                document.getElementById("village").value = "";
+                document.getElementById("date").value = "";
+            } else {
+                alert("Please fill all fields!");
+            }
+        }
+
+        function searchData() {
+            let filter = document.getElementById("search").value.toLowerCase();
+            let rows = document.getElementById("dataTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+            
+            for (let row of rows) {
+                let text = row.innerText.toLowerCase();
+                row.style.display = text.includes(filter) ? "" : "none";
+            }
+        }
+    </script>
 </body>
 </html>
